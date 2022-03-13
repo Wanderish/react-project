@@ -8,7 +8,6 @@ const Expenses = (props) => {
   const [selectedYear, setSelectedYear] = useState('2020')
 
   const saveSelectedOptionhandler = (selectedOption) => {
-    console.log('In Expenses.js: ' + selectedOption)
     setSelectedYear(selectedOption)
   }
 
