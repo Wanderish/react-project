@@ -1,8 +1,8 @@
 import Card from "../UI/Card";
-import ExpItem from "./ExpenseItem";
 import ExpensesFilter from "./ExpenseFilter";
 import { useState } from "react/cjs/react.development";
 import "./Expenses.css";
+import ExpensesList from "./ExpensesList";
 
 const Expenses = (props) => {
   const [selectedYear, setSelectedYear] = useState("2020");
@@ -11,9 +11,10 @@ const Expenses = (props) => {
     setSelectedYear(selectedOption);
   };
 
-  const filterExpensesByYear = (expense) => {
+  //filtering out the expenses by year
+  const filterExpensesByYear = props.expensesArray.filter((expense) => {
     return expense.date.getFullYear() === parseInt(selectedYear);
-  };
+  });
 
   return (
     <Card className="expenses">
@@ -21,15 +22,8 @@ const Expenses = (props) => {
         selected={selectedYear}
         onSelectOption={saveSelectedOptionhandler}
       />
-      {/* get the expensesArray and create one ExpItem per element of the array */}
-      {props.expensesArray.filter(filterExpensesByYear).map((expense) => (
-        <ExpItem
-          key={expense.id}
-          title={expense.title}
-          amount={expense.amount}
-          date={expense.date}
-        />
-      ))}
+      {/* if expenses present, display them else display a message accordingly */}
+      <ExpensesList items={filterExpensesByYear}/>;
     </Card>
   );
 };
